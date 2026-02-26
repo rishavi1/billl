@@ -1,6 +1,8 @@
 let selectedProduct = {};
 let quantity = 1;
 let totalAmount = 0;
+let subTotalAmount = 0;
+let gstPercent = 5;
 
 /* Auto Date */
 document.getElementById("invoiceDate").innerText =
@@ -26,7 +28,7 @@ function changeQty(change) {
 
 function confirmAdd() {
     let total = selectedProduct.price * quantity;
-    totalAmount += total;
+    subTotalAmount += total;
 
     let div = document.createElement("div");
     div.className = "invoice-item";
@@ -35,7 +37,6 @@ function confirmAdd() {
         <span style="float:right;">₹${total}</span>
     `;
 
-    /* Swipe to remove */
     let startX = 0;
     div.addEventListener("touchstart", e => startX = e.touches[0].clientX);
     div.addEventListener("touchmove", e => {
@@ -44,7 +45,7 @@ function confirmAdd() {
             div.style.transform = "translateX(-100%)";
             setTimeout(() => {
                 div.remove();
-                totalAmount -= total;
+                subTotalAmount -= total;
                 updateTotal();
             }, 300);
         }
@@ -56,7 +57,17 @@ function confirmAdd() {
 }
 
 function updateTotal() {
-    document.getElementById("grandTotal").innerText = totalAmount;
+    let discount = parseFloat(document.getElementById("discountInput")?.value) || 0;
+    let gst = (subTotalAmount * gstPercent) / 100;
+    let finalTotal = subTotalAmount + gst - discount;
+
+    if (finalTotal < 0) finalTotal = 0;
+
+    document.getElementById("subTotal").innerText = subTotalAmount.toFixed(2);
+    document.getElementById("gstAmount").innerText = gst.toFixed(2);
+    document.getElementById("grandTotal").innerText = finalTotal.toFixed(2);
+
+    totalAmount = finalTotal;
 }
 
 function closeModal() {
@@ -72,7 +83,6 @@ function printInvoice() {
     }
 
     localStorage.setItem("invoiceCounter", parseInt(customNo) + 1);
-
     window.print();
 }
 
@@ -81,8 +91,21 @@ function goToPayment() {
 }
 
 function completePayment(method) {
-    alert("Payment Successful via " + method);
-    location.reload();
+    alert(
+        "Payment Successful\n\n" +
+        "Method: " + method +
+        "\nTotal Paid: ₹" + totalAmount
+    );
+    clearInvoice();
+}
+
+function clearInvoice() {
+    document.getElementById("invoiceBody").innerHTML = "";
+    subTotalAmount = 0;
+    totalAmount = 0;
+    document.getElementById("discountInput").value = "";
+    updateTotal();
+    switchScreen("productScreen");
 }
 
 function switchScreen(id) {
