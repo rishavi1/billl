@@ -5,7 +5,6 @@ body {
     color: white;
 }
 
-/* HEADER */
 .app-header {
     text-align: center;
     padding: 20px;
@@ -15,7 +14,6 @@ body {
     border-bottom: 2px solid gold;
 }
 
-/* SCREENS */
 .screen {
     display: none;
     padding: 15px;
@@ -26,7 +24,6 @@ body {
     display: block;
 }
 
-/* PRODUCT GRID */
 .product-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -51,7 +48,6 @@ body {
     font-weight: bold;
 }
 
-/* BIG BOTTOM BAR */
 .big-bottom-bar {
     position: fixed;
     bottom: 0;
@@ -64,15 +60,18 @@ body {
     font-weight: bold;
 }
 
-/* INVOICE */
 .invoice-header input {
     width: 100%;
     padding: 8px;
     margin: 5px 0;
+    background: #111827;
+    color: white;
+    border: 1px solid gold;
+    border-radius: 5px;
 }
 
 .invoice-list {
-    padding-bottom: 150px;
+    padding-bottom: 200px;
 }
 
 .invoice-item {
@@ -83,7 +82,6 @@ body {
     transition: transform 0.3s ease;
 }
 
-/* TOTAL SECTION */
 .total-section {
     position: fixed;
     bottom: 0;
@@ -93,6 +91,24 @@ body {
     border-top: 2px solid gold;
 }
 
+.bill-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 8px 0;
+}
+
+.bill-row input {
+    width: 80px;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+}
+
+.total-section hr {
+    border: 1px solid gold;
+    margin: 10px 0;
+}
+
 .total-section button {
     width: 100%;
     padding: 15px;
@@ -100,9 +116,14 @@ body {
     background: gold;
     border: none;
     font-size: 16px;
+    cursor: pointer;
+    transition: 0.2s ease;
 }
 
-/* PAYMENT */
+.total-section button:active {
+    transform: scale(0.95);
+}
+
 .payment-options button {
     width: 100%;
     padding: 20px;
@@ -121,7 +142,6 @@ body {
     margin-bottom: 10px;
 }
 
-/* MODAL */
 .modal {
     display: none;
     position: fixed;
@@ -146,12 +166,8 @@ body {
     margin: 20px 0;
 }
 
-/* PRINT CLEAN RECEIPT */
 @media print {
-
-    body * {
-        visibility: hidden;
-    }
+    body * { visibility: hidden; }
 
     #invoiceScreen, #invoiceScreen * {
         visibility: visible;
