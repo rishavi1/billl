@@ -3,7 +3,6 @@
 <head>
     <title>Restaurant POS</title>
 
-    <!-- Disable Zoom -->
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0,
           maximum-scale=1.0, user-scalable=no">
@@ -65,14 +64,40 @@
         <input type="text" id="invoiceNumberInput">
 
         <p>Date: <span id="invoiceDate"></span></p>
+
+        <label>Customer Name:</label>
+        <input type="text" id="customerName" placeholder="Enter customer name">
+
+        <label>Mobile Number:</label>
+        <input type="text" id="customerMobile" placeholder="Enter mobile number">
     </div>
 
     <div id="invoiceBody" class="invoice-list"></div>
 
     <div class="total-section">
+
+        <div class="bill-row">
+            <span>Subtotal</span>
+            <span>₹<span id="subTotal">0</span></span>
+        </div>
+
+        <div class="bill-row">
+            <span>GST (5%)</span>
+            <span>₹<span id="gstAmount">0</span></span>
+        </div>
+
+        <div class="bill-row">
+            <span>Discount</span>
+            <input type="number" id="discountInput" placeholder="0" oninput="updateTotal()">
+        </div>
+
+        <hr>
+
         <h2>Total ₹<span id="grandTotal">0</span></h2>
+
         <button onclick="printInvoice()">🖨 Print</button>
         <button onclick="goToPayment()">Proceed to Payment</button>
+
     </div>
 
 </div>
