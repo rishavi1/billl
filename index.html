@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Restaurant POS</title>
+
+    <!-- Disable Zoom -->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0,
+          maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-header">
+    🍽️ MY RESTAURANT POS
+</div>
+
+<!-- ================= PRODUCT SCREEN ================= -->
+<div id="productScreen" class="screen active">
+
+    <div class="product-grid">
+
+        <div class="product-card" onclick="openQuantity('Burger',120)">
+            <img src="https://i.imgur.com/5Aqgz7o.png">
+            <h3>Burger</h3>
+            <p>₹120</p>
+        </div>
+
+        <div class="product-card" onclick="openQuantity('Pizza',250)">
+            <img src="https://i.imgur.com/eTmWoAN.png">
+            <h3>Pizza</h3>
+            <p>₹250</p>
+        </div>
+
+        <div class="product-card" onclick="openQuantity('Pasta',180)">
+            <img src="https://i.imgur.com/2nCt3Sbl.jpg">
+            <h3>Pasta</h3>
+            <p>₹180</p>
+        </div>
+
+        <div class="product-card" onclick="openQuantity('Cold Drink',60)">
+            <img src="https://i.imgur.com/Y4G5hG5.png">
+            <h3>Cold Drink</h3>
+            <p>₹60</p>
+        </div>
+
+    </div>
+
+    <div class="big-bottom-bar" onclick="switchScreen('invoiceScreen')">
+        🧾 View Invoice
+    </div>
+
+</div>
+
+
+<!-- ================= INVOICE SCREEN ================= -->
+<div id="invoiceScreen" class="screen">
+
+    <div class="invoice-header">
+        <button class="back-btn-top" onclick="switchScreen('productScreen')">⬅ Back</button>
+        <h2>Invoice Preview</h2>
+
+        <label>Invoice No:</label>
+        <input type="text" id="invoiceNumberInput">
+
+        <p>Date: <span id="invoiceDate"></span></p>
+    </div>
+
+    <div id="invoiceBody" class="invoice-list"></div>
+
+    <div class="total-section">
+        <h2>Total ₹<span id="grandTotal">0</span></h2>
+        <button onclick="printInvoice()">🖨 Print</button>
+        <button onclick="goToPayment()">Proceed to Payment</button>
+    </div>
+
+</div>
+
+
+<!-- ================= PAYMENT SCREEN ================= -->
+<div id="paymentScreen" class="screen">
+    <h2>Select Payment Method</h2>
+
+    <div class="payment-options">
+        <button onclick="completePayment('Cash')">💵 Cash</button>
+        <button onclick="completePayment('UPI')">📱 UPI</button>
+        <button onclick="completePayment('Card')">💳 Card</button>
+    </div>
+
+    <button class="back-payment" onclick="switchScreen('invoiceScreen')">⬅ Back</button>
+</div>
+
+
+<!-- ================= QUANTITY MODAL ================= -->
+<div id="quantityModal" class="modal">
+    <div class="modal-content">
+        <h3 id="modalProductName"></h3>
+
+        <div class="qty-controls">
+            <button onclick="changeQty(-1)">−</button>
+            <span id="quantityValue">1</span>
+            <button onclick="changeQty(1)">+</button>
+        </div>
+
+        <button class="add-btn" onclick="confirmAdd()">Add to Cart</button>
+        <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
